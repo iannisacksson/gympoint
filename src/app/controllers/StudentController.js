@@ -3,6 +3,19 @@ import Student from '../models/Student';
 
 class StudentController {
   async store(req, res) {
+    const schema = Yup.object().shape({
+      name: Yup.string().required(),
+      email: Yup.string()
+        .email()
+        .required(),
+      weight: Yup.number().required(),
+      height: Yup.number().required(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation fais' });
+    }
+
     const userExists = await Student.findOne({
       where: { email: req.body.email },
     });
