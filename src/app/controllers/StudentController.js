@@ -39,6 +39,7 @@ class StudentController {
       confirmEmail: Yup.string().when('email', (email, field) =>
         email ? field.required().oneOf([Yup.ref('email')]) : field
       ),
+      age: Yup.number(),
       weight: Yup.number(),
       height: Yup.number(),
     });
@@ -63,9 +64,9 @@ class StudentController {
       }
     }
 
-    const { id, name, weight, height } = await student.update(req.body);
+    const { id, name, age, weight, height } = await student.update(req.body);
 
-    return res.json({ id, name, email, weight, height });
+    return res.json({ id, name, email, age, weight, height });
   }
 }
 
