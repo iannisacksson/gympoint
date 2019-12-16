@@ -14,10 +14,8 @@ class User extends Model {
         sequelize,
       }
     );
-  }
 
-  static associate(models) {
-    this.belongsTo(models.File, { foreignKey: 'avatar_id', as: 'avatar' });
+    return this;
   }
 
   checkPassword(password) {
